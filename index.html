@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1.04">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="http://static.gabia.com/www/common/css/reset.css">
+		<link rel="stylesheet" href="assets/css/style.css">
+		<title>Detecting browser, major os, whether it is mobile or not</title>
+	</head>
+	<body>
+		<script type="text/javascript" src="assets/js/detect.js"></script>
+		<script>
+			var agt = gAgent();
+			var str = "";
+			for(key in agt) {
+				if(typeof(agt[key]) == 'object') {
+					str += key + 'Name: '+ agt[key].name;
+					str += '<br>';
+					str += key + 'Version: '+ agt[key].version;
+					str += '<br>';
+				}
+				else {
+					str += key +': '+ agt[key];
+					str += '<br>';
+				}
+			}
+			document.write('<p><i>userAgent: ' + navigator.userAgent.toLowerCase() + '</i></p>');
+			document.write('<hr>');
+			document.write(str);
+		</script>
+	</body>
+</html>
