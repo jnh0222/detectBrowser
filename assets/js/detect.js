@@ -2,7 +2,7 @@ var gAgent = function() {
 	//final value
 	var agentInfo = {
 		isMobile: false,
-		browser : {name : "unknown", version : "unknown"}
+		browser : {name : "unknown", version : -1}
 	};
 	
 	//variables
@@ -84,7 +84,6 @@ var gAgent = function() {
 			nAppVer = nAppVer.substring(0, ix);
 		}		
 		agentInfo.browser.name = nAppName;
-		agentInfo.browser.version = nAppVer;
 	}
 	
 	detectMobile();

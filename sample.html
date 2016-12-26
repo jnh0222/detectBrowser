@@ -15,6 +15,7 @@
 			var agt = gAgent();
 			
 			function stylingConsole() {
+				document.write('<h1>Open the devtools.</h1>')
 				var style = {};
 				style.link = 'font-size:11px;color:LightSeaGreen;';
 				style.msg = 'font-size:18px;color:Peru;';
@@ -28,8 +29,13 @@
 				console.log('%chttp://static.gabia.com/gtris', style.link);				
 			};		
 			
-			if(!agt.isMobile && /(chrome|firefox|opera|whale|swing)/.test(agt.browser.name) ) {
-				stylingConsole();
+			if(!agt.isMobile) {
+				if(/(chrome|firefox|opera|whale|swing)/.test(agt.browser.name) ) {
+					stylingConsole();
+				}				
+				if( agt.browser.name == 'ie' && agt.browser.version < 8) {
+					document.write('ie 8미만 버전 접속');
+				}
 			}
 		</script>
 	</body>
