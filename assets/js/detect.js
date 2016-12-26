@@ -84,6 +84,7 @@ var gAgent = function() {
 			nAppVer = nAppVer.substring(0, ix);
 		}		
 		agentInfo.browser.name = nAppName;
+		agentInfo.browser.version = parseFloat(nAppVer);
 	}
 	
 	detectMobile();
