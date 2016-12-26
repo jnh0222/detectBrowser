@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1.04">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="http://static.gabia.com/www/common/css/reset.css">
+		<link rel="stylesheet" href="assets/css/style.css">
+		<title>Detecting browser, major os, whether it is mobile or not</title>
+	</head>
+	<body>
+		<script type="text/javascript" src="assets/js/detect.js"></script>
+		<script>			
+			var agt = gAgent();
+			
+			function stylingConsole() {
+				var style = {};
+				style.link = 'font-size:11px;color:LightSeaGreen;';
+				style.msg = 'font-size:18px;color:Peru;';
+				style.str_gtris = 'font-weight:bold;font-size:32px;border-radius:50%;background-color:OldLace;border:2px dashed Maroon;margin:0 4px;padding:0 10px;';
+				style.str_G = style.str_gtris + 'color:Indigo;';
+				style.str_T = style.str_gtris + 'color:salmon;';
+				style.str_R = style.str_gtris + 'color:MediumAquaMarine;';
+				style.str_I = style.str_gtris + 'color:CornflowerBlue;';
+				style.str_S = style.str_gtris + 'color:orchid;';
+				console.log('%cStart your next web project with ' + '%cG' + '%cT' + '%cR' + '%cI' + '%cS', style.msg, style.str_G, style.str_T, style.str_R, style.str_I, style.str_S);
+				console.log('%chttp://static.gabia.com/gtris', style.link);				
+			};		
+			
+			if(!agt.isMobile && /(chrome|firefox|opera|whale|swing)/.test(agt.browser.name) ) {
+				stylingConsole();
+			}
+		</script>
+	</body>
+</html>

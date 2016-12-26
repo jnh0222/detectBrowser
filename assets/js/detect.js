@@ -27,54 +27,60 @@ var gAgent = function() {
 	}
 	
 	function getBrowser() {
-		if((verOffset = nAgt.indexOf('msie')) > -1) {	// ie 7~10
+		if((verOffset = nAgt.indexOf('msie')) > -1) {	// ie 6~10
 			nAppName = 'ie';
 			nAppVer = nAgt.substring(verOffset + 5);
 		}
-		else if (nAgt.indexOf('trident/') > -1) {	// ie 11
+		else if(nAgt.indexOf('trident/') > -1) {	// ie 11
 			nAppName = 'ie';
 			nAppVer = nAgt.substring(nAgt.indexOf('rv:') + 3);
 		}
-		else if ((verOffset = nAgt.indexOf('edge')) > -1) {	// edge
+		else if((verOffset = nAgt.indexOf('edge')) > -1) {	// edge
 			nAppName = 'edge';
 			nAppVer = nAgt.substring(verOffset + 5);
 		}
-		else if ((verOffset = nAgt.indexOf('swing')) > -1) {	// swing
+		else if((verOffset = nAgt.indexOf('swing')) > -1) {	// swing
 			nAppName = 'swing';
 			nAppVer = nAgt.substring(verOffset + 6);
 		}
-		else if ((verOffset = nAgt.indexOf('whale')) > -1) {	// whale
+		else if((verOffset = nAgt.indexOf('whale')) > -1) {	// whale
 			nAppName = 'whale';
 			nAppVer = nAgt.substring(verOffset + 6);
 		}		
-		else if ((verOffset = nAgt.indexOf('opera')) > -1) {	// opera
+		else if((verOffset = nAgt.indexOf('opera')) > -1) {	// opera
 			nAppName = 'opera';
 			nAppVer = nAgt.substring(verOffset + 6);
 			if ((verOffset = nAgt.indexOf('version')) > -1) {
 				nAppVer = nAgt.substring(verOffset + 8);
 			}
 		}
-		else if ((verOffset = nAgt.indexOf('opr')) > -1) {	// opera Next
+		else if((verOffset = nAgt.indexOf('opr')) > -1) {	// opera Next
 			nAppName = 'opera';
 			nAppVer = nAgt.substring(verOffset + 4);
 		}
-		else if ((verOffset = nAgt.indexOf('firefox')) > -1) {	// firefox
+		else if((verOffset = nAgt.indexOf('firefox')) > -1) {	// firefox
 			nAppName = 'firefox';
 			nAppVer = nAgt.substring(verOffset + 8);
 		}
-		else if ( ((verOffset = nAgt.indexOf('safari')) > -1) && (nAgt.indexOf('chrome') == -1) ) {	// safari
+		else if( ((verOffset = nAgt.indexOf('safari')) > -1) && (nAgt.indexOf('chrome') == -1) ) {	// safari
 			nAppName = 'safari';
 			nAppVer = nAgt.substring(verOffset + 7);
 			if ((verOffset = nAgt.indexOf('version')) > -1) {
 				nAppVer = nAgt.substring(verOffset + 8);
 			}
 		}
-		else if ((verOffset = nAgt.indexOf('chrome')) > -1) {	// chrome
+		else if((verOffset = nAgt.indexOf('chrome')) > -1) {	// chrome
 			nAppName = 'chrome';
 			nAppVer = nAgt.substring(verOffset + 7);
 		}
 		// trim the version string
-		if ( ((ix = nAppVer.indexOf(';')) > -1) || ((ix = nAppVer.indexOf(' ')) > -1) || ((ix = nAppVer.indexOf(')')) > -1 )) {
+		if((ix = nAppVer.indexOf(' ')) > -1) {
+			nAppVer = nAppVer.substring(0, ix);
+		}
+		if((ix = nAppVer.indexOf(')')) > -1) {
+			nAppVer = nAppVer.substring(0, ix);
+		}
+		if((ix = nAppVer.indexOf(')')) > -1) {
 			nAppVer = nAppVer.substring(0, ix);
 		}		
 		agentInfo.browser.name = nAppName;
