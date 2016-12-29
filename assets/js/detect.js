@@ -16,7 +16,7 @@ var gAgent = function() {
 	function detectMobile() {
 		var pfm = navigator.platform.toLowerCase();
 		var filter = "win16|win32|win64|mac|macintel";
-		return (filter.indexOf(pfm)<0) ? true : false;
+		(filter.indexOf(pfm)<0) ? agentInfo.isMobile = true : agentInfo.isMobile = false;
 	}
 	
 	function getBrowser() {
