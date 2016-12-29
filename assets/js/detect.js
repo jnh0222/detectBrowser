@@ -1,86 +1,47 @@
-var gAgent = function() {
+var myAgent = function() {
 	//final value
-	var agentInfo = {
-		isMobile: false,
-		browser : {name : "unknown", version : -1}
-	};
+	var agentInfo = {};
 	
-	//variables
-	var nVer = navigator.appVersion.toLowerCase();
-	var nAgt = navigator.userAgent.toLowerCase();
-	var nAppName = "";
-	var nAppVer = "";
-	var verOffset = -1;
-	var ix = -1;
-	
+	var browserPool = [
+		{detectStr: "msie", name: "ie"},
+		{detectStr: "trident", name: "ie"},
+		{detectStr: "edge", name: "edge"},
+		{detectStr: "firefox", name: "firefox"},
+		{detectStr: "opr", name: "opera"},
+		{detectStr: "chrome", name: "chrome"},
+		{detectStr: "safari", name: "safari"}
+	]
+
 	function detectMobile() {
 		var pfm = navigator.platform.toLowerCase();
-		var filter = "win16|win32|win64|mac|macintel";
-		(filter.indexOf(pfm)<0) ? agentInfo.isMobile = true : agentInfo.isMobile = false;
-	}
+		var detectStr = "win16|win32|win64|mac|macintel";
+		return (detectStr.indexOf(pfm)<0) ? true : false;
+	}	
 	
-	function getBrowser() {
-		if((verOffset = nAgt.indexOf('msie')) > -1) {	// ie 6~10
-			nAppName = 'ie';
-			nAppVer = nAgt.substring(verOffset + 5);
-		}
-		else if(nAgt.indexOf('trident/') > -1) {	// ie 11
-			nAppName = 'ie';
-			nAppVer = nAgt.substring(nAgt.indexOf('rv:') + 3);
-		}
-		else if((verOffset = nAgt.indexOf('edge')) > -1) {	// edge
-			nAppName = 'edge';
-			nAppVer = nAgt.substring(verOffset + 5);
-		}
-		else if((verOffset = nAgt.indexOf('swing')) > -1) {	// swing
-			nAppName = 'swing';
-			nAppVer = nAgt.substring(verOffset + 6);
-		}
-		else if((verOffset = nAgt.indexOf('whale')) > -1) {	// whale
-			nAppName = 'whale';
-			nAppVer = nAgt.substring(verOffset + 6);
-		}		
-		else if((verOffset = nAgt.indexOf('opera')) > -1) {	// opera
-			nAppName = 'opera';
-			nAppVer = nAgt.substring(verOffset + 6);
-			if ((verOffset = nAgt.indexOf('version')) > -1) {
-				nAppVer = nAgt.substring(verOffset + 8);
+	function detectBrowser() {
+		var ua = navigator.userAgent.toLowerCase();
+		var n, v, vOffset;
+		for(var i in browserPool) {
+			if((vOffset = ua.indexOf(browserPool[i].detectStr)) > -1) {
+				n = browserPool[i].name;
+				if(browserPool[i].detectStr == 'trident') { //ie11
+					v = ua.substr(ua.indexOf('rv:') + 3);
+					v = parseFloat(v.split(')')[0]);
+				}
+				else if(browserPool[i].detectStr == 'safari') {
+					v = ua.substr(ua.indexOf('version/') + 8);
+					v = parseFloat(v.split('/')[0]);
+				}
+				else {
+					v = ua.substr(vOffset + browserPool[i].detectStr.length + 1);
+					v = parseFloat(v.split(' ')[0]);	
+				}
+				return {name: n, version: v};
+			break;
 			}
 		}
-		else if((verOffset = nAgt.indexOf('opr')) > -1) {	// opera Next
-			nAppName = 'opera';
-			nAppVer = nAgt.substring(verOffset + 4);
-		}
-		else if((verOffset = nAgt.indexOf('firefox')) > -1) {	// firefox
-			nAppName = 'firefox';
-			nAppVer = nAgt.substring(verOffset + 8);
-		}
-		else if( ((verOffset = nAgt.indexOf('safari')) > -1) && (nAgt.indexOf('chrome') == -1) ) {	// safari
-			nAppName = 'safari';
-			nAppVer = nAgt.substring(verOffset + 7);
-			if ((verOffset = nAgt.indexOf('version')) > -1) {
-				nAppVer = nAgt.substring(verOffset + 8);
-			}
-		}
-		else if((verOffset = nAgt.indexOf('chrome')) > -1) {	// chrome
-			nAppName = 'chrome';
-			nAppVer = nAgt.substring(verOffset + 7);
-		}
-		// trim the version string
-		if((ix = nAppVer.indexOf(' ')) > -1) {
-			nAppVer = nAppVer.substring(0, ix);
-		}
-		if((ix = nAppVer.indexOf(')')) > -1) {
-			nAppVer = nAppVer.substring(0, ix);
-		}
-		if((ix = nAppVer.indexOf(')')) > -1) {
-			nAppVer = nAppVer.substring(0, ix);
-		}		
-		agentInfo.browser.name = nAppName;
-		agentInfo.browser.version = parseFloat(nAppVer);
 	}
-	
-	detectMobile();
-	getBrowser();
+	agentInfo.isMobile = detectMobile();
+	agentInfo.browser = detectBrowser();
 	return agentInfo;
 }

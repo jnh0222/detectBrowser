@@ -12,7 +12,7 @@
 	<body>
 		<script type="text/javascript" src="assets/js/detect.js"></script>
 		<script>			
-			var agt = gAgent();
+			var agt = myAgent();
 			
 			function stylingConsole() {
 				document.write('<h1>Open the devtools.</h1>')
@@ -26,15 +26,15 @@
 				style.str_I = style.str_gtris + 'color:CornflowerBlue;';
 				style.str_S = style.str_gtris + 'color:orchid;';
 				console.log('%cStart your next web project with ' + '%cG' + '%cT' + '%cR' + '%cI' + '%cS', style.msg, style.str_G, style.str_T, style.str_R, style.str_I, style.str_S);
-				console.log('%chttp://static.gabia.com/gtris', style.link);				
+				console.log('%chttp://static.gabia.com/gtris/1.1.0', style.link);				
 			};		
 			
 			if(!agt.isMobile) {
-				if(/(chrome|firefox|opera|whale|swing)/.test(agt.browser.name) ) {
+				if(/(chrome|firefox|opera)/.test(agt.browser.name) ) {
 					stylingConsole();
 				}				
 				if( agt.browser.name == 'ie' && agt.browser.version < 8) {
-					document.write('ie 8미만 버전 접속');
+					document.write('lte ie8');
 				}
 			}
 		</script>
