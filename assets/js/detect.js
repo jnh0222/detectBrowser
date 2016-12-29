@@ -36,10 +36,14 @@ var myAgent = function() {
 					v = ua.substr(vOffset + browserPool[i].detectStr.length + 1);
 					v = parseFloat(v.split(' ')[0]);	
 				}
-				return {name: n, version: v};
-			break;
+				break;
+			}else {
+				n = "unknown";
+				v = 0;
 			}
 		}
+		return {name: n, version: v};
+		
 	}
 	agentInfo.isMobile = detectMobile();
 	agentInfo.browser = detectBrowser();
